@@ -9,7 +9,15 @@ module.exports=merge(config,{
     devServer:{
         port:9900,
         hot:true,
-        contentBase:'../dist'
+        contentBase:'../dist',
+        proxy:{
+            '/api':{
+                pathRewrite:{'^/api':""},
+                target:'http://localhost:6008/api/',
+                changeOrigin:true,
+                ws:false
+            }
+        }
     },
     plugins:[
         new webpack.HotModuleReplacementPlugin()

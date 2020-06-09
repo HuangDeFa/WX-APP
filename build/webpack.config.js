@@ -22,6 +22,7 @@ module.exports={
         new VueLoaderPlugin()
     ],
     module:{
+        noParse:/^(vue|vuex|vue-roter|vue-router-sync)$/,
         rules:[
             {
                 test: /\.vue$/,         // npm i -D vue-loader vue-template-compiler vue-style-loader
@@ -155,6 +156,6 @@ module.exports={
             "vue$":"vue/dist/vue.runtime.esm.js",
             "@":path.resolve(__dirname,'../src')
         },
-        extensions:["*",'.js','.json','.vue']
+        extensions:['.js','mjs','.vue','.json']
     }
 }

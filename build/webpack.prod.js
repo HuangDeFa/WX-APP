@@ -6,6 +6,7 @@ const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
+
 module.exports=merge(config,{
     mode:'production',
     devtool:"cheap-module-source-map",
@@ -18,28 +19,30 @@ module.exports=merge(config,{
         to:path.resolve(__dirname,'../dist')
        }]),
        new MiniCssExtractPlugin({
-           filename:'[name].[hash].css',
-       }),
-       
+           filename:'[name].[contenthash].css',
+           chunkFilename:'[name].[contenthash].css'
+       })
     ],
     optimization:{
         minimizer:[
-            new UglifyJsPlugin({
-                parallel:true,
-                cache:true,
-                sourceMap:true
-            }),
             new OptimizeCssAssetsWebpackPlugin({}),
         ],
+        minimize:true,
         moduleIds:'hashed',
-        runtimeChunk:'single',
-        minimizer:[],
+        namedModules:true,
         splitChunks:{
             chunks:'all',
             cacheGroups:{
                 vendor:{
+                    name:'vendor-chunk',
                     test:/node_modules/,
                     chunks:'initial'
+                },
+                common:{
+                    chunks:'initial',
+                    name:'common',
+                    minChunks:2,
+                    reuseExistingChunk:true
                 }
             }
         }

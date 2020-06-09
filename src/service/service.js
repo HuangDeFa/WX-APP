@@ -1,6 +1,6 @@
 import Axios from 'axios'
 import store  from '../store/store';
-Axios.defaults.baseURL = "http://localhost:6008/api/";
+Axios.defaults.baseURL = "/api";
 
 Axios.interceptors.request.use(function(config){
       if(store().state.isLogin){
@@ -9,7 +9,7 @@ Axios.interceptors.request.use(function(config){
       console.log('start request ',config);
       return config;
 },error=>{
-    Promise.reject(error);ß
+    Promise.reject(error);
 });
 Axios.interceptors.response.use(response=>{
     return response;
@@ -19,7 +19,7 @@ Axios.interceptors.response.use(response=>{
 
 export async function register(userName,phoneNumber,password,avatar){
    try{
-     const response =  await Axios.post("register",{userName,phoneNumber,password});
+     const response =  await Axios.post("/register",{userName,phoneNumber,password});
      return response.status==200 
    }catch(error){
        console.log('register error',error);
@@ -29,7 +29,7 @@ export async function register(userName,phoneNumber,password,avatar){
 
 export async function loginByPhoneNumber(phoneNumber,password){
     try{
-      const response =  await Axios.post("loginByPhoneNumber",{phoneNumber,password});
+      const response =  await Axios.post("/loginByPhoneNumber",{phoneNumber,password});
       return response.data
     }catch(error){
         console.log('loginByPhoneNumber error',error);
@@ -39,7 +39,7 @@ export async function loginByPhoneNumber(phoneNumber,password){
 
  export async function loginByAccount(userName,password){
     try{
-      const response =  await Axios.post("loginByAccount",{userName,password});
+      const response =  await Axios.post("/loginByAccount",{userName,password});
       return response.data
     }catch(error){
         console.log('loginByAccount error',error);
@@ -48,7 +48,7 @@ export async function loginByPhoneNumber(phoneNumber,password){
  }
  export async function getNotifications(){
      try{
-       const response = await Axios.get("getNotification");
+       const response = await Axios.get("/getNotification");
        return response.data;
      }catch(error){
       console.log('getNotification error',error);
@@ -57,7 +57,7 @@ export async function loginByPhoneNumber(phoneNumber,password){
  }
  export async function getContacts(){
   try{
-    const response = await Axios.get("getContacts");
+    const response = await Axios.get("/getContacts");
     return response.data;
   }catch(error){
    console.log('getContacts error',error);
