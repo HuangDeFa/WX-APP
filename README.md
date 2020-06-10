@@ -18,6 +18,31 @@ Vue , VueX ,Vue-Roter , Axios, Webpack
 
 **以上功能均是静态页面的实现，后续还将采用egg.js建立后台应用实现可交互的完整WX应用**
 
+## 项目截图
+
+### 登陆页面
+<img src="https://github.com//HuangDeFa/WX-APP/blob/master/screenshots/login.gif" width="365" height="619">
+
+### 主要入口页面
+<img src="https://github.com//HuangDeFa/WX-APP/blob/master/screenshots/tabs.gif" width="365" height="619">
+
+### 聊天页面
+<img src="https://github.com//HuangDeFa/WX-APP/blob/master/screenshots/conversation.gif" width="365" height="619">
+
+
+### 聊天设置页面
+<img src="https://github.com//HuangDeFa/WX-APP/blob/master/screenshots/conversation-setting.gif" width="365" height="619">
+
+### 用户详情页面
+<img src="https://github.com//HuangDeFa/WX-APP/blob/master/screenshots/user-info.gif" width="365" height="619">
+
+### 朋友圈
+<img src="https://github.com//HuangDeFa/WX-APP/blob/master/screenshots/pengyouquan.gif" width="365" height="619">
+
+### 钱包页面
+<img src="https://github.com//HuangDeFa/WX-APP/blob/master/screenshots/packet.gif" width="365" height="619">
+
+
 ## 项目结构
 ```
 .

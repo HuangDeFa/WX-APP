@@ -3,6 +3,8 @@ const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const VueLoaderPlugin =  require('vue-loader/lib/plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports={
     entry:{
@@ -10,16 +12,24 @@ module.exports={
         app:path.resolve(__dirname,'../src/main.js')
     },
     output:{
-        filename:"[name].js",
+        filename:"js/[name].js",
         path:path.resolve(__dirname,'../dist'),
-        chunkFilename:'[name].bundle.js'
+        chunkFilename:'js/[name].bundle.js'
     },
     plugins:[
         new HtmlWebPackPlugin({
             template:path.resolve(__dirname,'../public/index.html')
         }),
         new CleanWebpackPlugin(),
-        new VueLoaderPlugin()
+        new VueLoaderPlugin(),
+        new MiniCssExtractPlugin({
+            filename:'css/[name].[contenthash].css',
+            chunkFilename:'css/[name].[contenthash].css'
+        }),
+        new CopyWebpackPlugin([{
+         from:path.resolve(__dirname,'../public'),
+         to:path.resolve(__dirname,'../dist')
+        }])
     ],
     module:{
         noParse:/^(vue|vuex|vue-roter|vue-router-sync)$/,
@@ -55,8 +65,13 @@ module.exports={
           {
               test:/\.scss$/,
               use:[
-                  'vue-style-loader',
-                  'style-loader',
+                  {
+                    loader:MiniCssExtractPlugin.loader,
+                    options:{
+                        publicPath:'../',
+                        hmr: process.env.NODE_ENV === 'development',
+                    }
+                  },
                   'css-loader',
                   {
                       loader:'postcss-loader',
@@ -76,7 +91,13 @@ module.exports={
           {
             test:/\.css$/,
             use:[
-                "style-loader",
+                {
+                    loader:MiniCssExtractPlugin.loader,
+                    options:{
+                        publicPath:'../',
+                        hmr: process.env.NODE_ENV === 'development',
+                    }
+                },
                 "css-loader",
                 {
                     loader:'postcss-loader',
